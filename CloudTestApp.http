@@ -1,0 +1,6 @@
+@CloudTestApp_HostAddress = http://localhost:5159
+
+GET {{CloudTestApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
