@@ -19,9 +19,13 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
+
+
 app.UseAuthorization();
 
 app.MapControllers();
 app.MapHealthChecks("/health");
+app.MapGet("/", () => "Cloud Consultant API is running");
+
 
 app.Run();
