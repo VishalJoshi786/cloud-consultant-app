@@ -61,5 +61,6 @@ jobs:
         with:
           app-name: 'cloud-consultant-app-dotnet8'
           slot-name: 'Production'
-          package: .
+          package: myapp
+
           
