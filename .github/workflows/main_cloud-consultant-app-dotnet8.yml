@@ -12,43 +12,39 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    permissions:
-      contents: read # Required for actions/checkout
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up .NET Core
+      - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
 
-      - name: Build the project
+      - name: Build
         run: dotnet build CloudTestApp.csproj --configuration Release
 
-      - name: Publish the project
+      - name: Publish
         run: dotnet publish CloudTestApp.csproj -c Release -o ./publish
 
-      - name: Upload artifact for deployment job
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
+          name: publish-folder
           path: ./publish
 
   deploy:
     runs-on: windows-latest
     needs: build
-    permissions:
-      id-token: write # Required for requesting the JWT
-      contents: read # Required for actions/checkout
 
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
+          name: publish-folder
+          path: ./publish
 
-      - name: Login to Azure
+      - name: Azure Login
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7C804C2D79B04EB89B285AF689AFB379 }}
@@ -56,7 +52,6 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_C31CC9ED260D445D9D6D199C9FB6C855 }}
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'cloud-consultant-app-dotnet8'
