@@ -20,13 +20,13 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        run: dotnet restore CloudTestApp/CloudTestApp.csproj
+        run: dotnet restore CloudTestApp.csproj
 
       - name: Build project
-        run: dotnet build CloudTestApp/CloudTestApp.csproj --configuration Release --no-restore
+        run: dotnet build CloudTestApp.csproj --configuration Release --no-restore
 
       - name: Publish project
-        run: dotnet publish CloudTestApp/CloudTestApp.csproj -c Release -o publish
+        run: dotnet publish CloudTestApp.csproj --configuration Release --output ./publish
 
       - name: List publish folder
         run: dir publish
@@ -43,3 +43,4 @@ jobs:
         with:
           app-name: cloud-consultant-app-dotnet8
           package: publish
+
