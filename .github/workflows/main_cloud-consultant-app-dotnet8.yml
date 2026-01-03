@@ -10,6 +10,10 @@ jobs:
   build-and-deploy:
     runs-on: windows-latest
 
+      permissions:
+    id-token: write
+    contents: read
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,4 +47,5 @@ jobs:
         with:
           app-name: cloud-consultant-app-dotnet8
           package: publish
+
 
