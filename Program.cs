@@ -1,12 +1,12 @@
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(
-        int.Parse(Environment.GetEnvironmentVariable("PORT") ?? "8080")
-    );
-});
+//builder.WebHost.ConfigureKestrel(options =>
+//{
+//    options.ListenAnyIP(
+//        int.Parse(Environment.GetEnvironmentVariable("PORT") ?? "8080")
+//    );
+//});
 
 
 // Add services to the container.
@@ -26,7 +26,7 @@ var app = builder.Build();
     app.UseSwaggerUI();
 //}
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 
 
